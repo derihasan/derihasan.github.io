@@ -26,15 +26,6 @@ MAX_CACHE_SIZE = 500
 TIME_WINDOW_HOURS = 3
 OUTPUT_FILE = "news_output.txt"
 
-# Search queries to run each cycle
-SEARCH_QUERIES = [
-    "berita trending Indonesia",
-    "berita populer site:kompas.com",
-    "viral site:detik.com",
-    "berita terbaru site:cnnindonesia.com",
-    "trending topic Indonesia"
-]
-
 # Popular Indonesian news sites
 NEWS_SOURCES = [
     "https://www.detik.com/terpopuler",
@@ -186,7 +177,7 @@ class IndonesianNewsScanner:
                     if pub_date_tag:
                         try:
                             publish_date = date_parser.parse(pub_date_tag.text)
-                        except:
+                        except Exception:
                             pass
                     
                     summary = ""
@@ -275,7 +266,7 @@ class IndonesianNewsScanner:
                         try:
                             datetime_attr = time_elem.get('datetime') or time_elem.get_text()
                             publish_date = date_parser.parse(datetime_attr)
-                        except:
+                        except Exception:
                             pass
                     
                     importance = self._calculate_importance(title, summary)
